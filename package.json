@@ -1,0 +1,28 @@
+{
+  "name": "rogue.io",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "webpack"
+  },
+  "author": "HCarriere",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "md5": "^2.2.1",
+    "mongoose": "^5.0.17",
+    "passport": "^0.4.0",
+    "random-seed": "^0.3.0",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.7.0",
+    "webpack-cli": "^2.1.3"
+  }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+		<title>Rogue.io{{titleSuffix}}</title>
+		
+        <meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="Content-Language" content="fr">
+
+        <link rel="stylesheet" href="/css/style.css">
+		{{#each additionalCSS}}
+		 <link rel="stylesheet" href="{{.}}">
+		{{/each}}
+        
+    </head>
+    
+    <body>
+        <main class="container">
+        {{{body}}}
+        </main>
+        
+    
+        
+        <!-- Copyright HCarriere 2018 -->
+        
+        <script type="text/javascript" src="/js/dist/scripts.js"></script>
+        {{#each additionalJS}}
+        <script type="text/javascript" src="{{.}}"></script>
+        {{/each}}
+    </body>
+    
+</html>
