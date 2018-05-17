@@ -1,4 +1,5 @@
 import * as graphic from  './graphics/base'
+import { deltaTime } from '.';
 
 let debugOn = true;
 let stepByStepOn = false;
@@ -7,13 +8,14 @@ const pointAmount = 350;
 
 let lastFPSs = [];
 let fluctuations = [];
+let lastPTSs = [];
 
-function drawDebug(fps, canvas) {
+function drawDebug(fps, pts, canvas) {
     if(!debugEnabled()) {
         return;
     }
 
-    showFPS(fps);
+    showFPS(fps, pts);
 
     if(canvas) {
         graphic.fillStyle('white');
@@ -21,6 +23,7 @@ function drawDebug(fps, canvas) {
         graphic.textStyle('10px monospace');
         graphic.text('descr:', 10, 100);
         graphic.text('width:'+canvas.width+' - height:'+canvas.height, 15, 115);
+        graphic.text('deltaTime:'+deltaTime, 15, 130);
 
         // edges
         graphic.fillStyle('#FFF');
@@ -31,7 +34,7 @@ function drawDebug(fps, canvas) {
     }
 }
 
-function showFPS(frameRate) {
+function showFPS(frameRate, pts) {
     if(frameRate) {
         lastFPSs.push(frameRate);
         fluctuations.push(getFluctuation(lastFPSs));
@@ -50,6 +53,8 @@ function showFPS(frameRate) {
         }
         graphic.stroke(10+i*pointDistance, 85-lastFPSs[i],
                 10+i*pointDistance+pointDistance, 85-lastFPSs[i+1]);
+        graphic.strokeStyle('grey');
+        graphic.stroke(10, 25, 10+pointAmount*pointDistance, 25);
     }
     // fluctuation
     /*for(let i=0; i<fluctuations.length-1; i++) {
@@ -63,12 +68,32 @@ function showFPS(frameRate) {
     }
     graphic.strokeStyle('grey');
     graphic.stroke(10, 100, 10+pointAmount*pointDistance, 100);*/
-    
+
+    if(pts) {
+        lastPTSs.push(pts);
+    }
+    if(lastPTSs.length > pointAmount) {
+        lastPTSs.shift();
+    }
+    // PTS
+    for(let i=0; i<lastPTSs.length-1; i++) {
+        if(lastPTSs[i+1] == 40) {
+            graphic.strokeStyle('green');
+        } else {
+            graphic.strokeStyle('white');
+        }
+        graphic.stroke(10+i*pointDistance, 120-lastPTSs[i],
+                10+i*pointDistance+pointDistance, 120-lastPTSs[i+1]);
+        graphic.strokeStyle('grey');
+        graphic.stroke(10, 80, 10+pointAmount*pointDistance, 80);
+    }
+
     // Text
     graphic.fillStyle('white');
     graphic.textAlign('left', 'top');
     graphic.textStyle('10px monospace');
     graphic.text('FPS : '+ Math.round(lastFPSs[lastFPSs.length-1]), 10, 10);
+    graphic.text('PTPS : '+ Math.round(lastPTSs[lastPTSs.length-1]), 10, 60);
     // graphic.text('Fluctuation : '+ Math.round(fluctuations[fluctuations.length-1]), 10, 50);
 }
 

@@ -86,6 +86,7 @@ export default class PhysicObject {
             this.velocity.y = (this.velocity.y / linearSpeed) * SPEED_LIMIT;
         }*/
 
+
         // update position
         this.coord.x += this.velocity.x;
         this.coord.y += this.velocity.y;

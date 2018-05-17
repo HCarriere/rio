@@ -85,42 +85,12 @@ function removeNetworkedPlayer(p) {
     delete networkedPlayersHashMap[p.id];
 }
 
-function updatePlayersFromSync(data) {
-    // compare players on server and players on client list
-    if(data.p.length == networkedPlayers.length) {
-        return;
-    }
-    if(data.p.length > networkedPlayers.length) {
-        // add players
-        for(let p of data.p) {
-            if(!networkedPlayersHashMap[p.id]) {
-                addNetworkedPlayer(new Character(p.id, {
-                    coord: {x:currentZone.width/2, y:currentZone.height/2},
-                    size: {width:30, height:50},
-                }));
-            }
-        }
-    }
-    if(data.p.length < networkedPlayers.length) {
-        // remove players
-        let hash = {};
-        for(let p of data.p) {
-            hash[p.id] == true;
-        }
-        for(let p of networkedPlayers) {
-            if(!hash[p.id]) {
-                removeNetworkedPlayer(p);
-            }
-        }
-    }
+function updateRoomFromSync(data) {
+   
 }
 
 function updateNetworkedPlayers(inputsPool) {
-    for(let inputs of inputsPool) {
-        if(networkedPlayersHashMap[inputs.id]) {
-            networkedPlayersHashMap[inputs.id].updateFromNetwork(inputs.d);
-        }
-    }
+    //networkedPlayersHashMap[inputs.id].updateFromNetwork(inputs.d);
 }
 
 
@@ -131,5 +101,5 @@ export {
     drawCurrentRoom,
     updateRoom,
     updateNetworkedPlayers,
-    updatePlayersFromSync,
+    updateRoomFromSync,
 }

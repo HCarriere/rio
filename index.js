@@ -68,6 +68,7 @@ app
 .set('views', path.join(__dirname, 'views/layouts'));
 
 // mongoose
+/*
 mongoose.connect(process.env.DB_URI || 'mongodb://localhost/rogueio');
 
 mongoose.connection.on('error', (err) => {
@@ -87,7 +88,7 @@ process.on('SIGINT', function() {
         console.log('Mongoose default connection disconnected through app termination'); 
         process.exit(0); 
     }); 
-}); 
+}); */
 
 // socket io server
 events.init(server);

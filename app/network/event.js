@@ -67,7 +67,7 @@ function onReceiveRoomQuery(socket, data) {
 }
 
 function onReceiveInputs(socket, data) {
-    emit.buildInputStates(socket, data);
+    
 }
 
 function onReceiveSync(socket, data) {

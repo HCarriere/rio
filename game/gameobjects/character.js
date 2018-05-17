@@ -30,7 +30,6 @@ export default class Character extends PhysicObject {
         this.acceleration = 3;
         this.speedLimit = 10; // px / frame
 
-        this.inputQueue = [];
     }
 
     draw(camera) {
@@ -190,16 +189,11 @@ export default class Character extends PhysicObject {
     }
 
     updateFromNetwork(inputs) {
-        for(let input of inputs) {
-            this.inputQueue.push(input);
-        }
+
     }
 
     getActiveInputStates() {
-        if(this.inputQueue.length > 0) {
-            return this.inputQueue.shift();
-        }
-        return {};
+        
     }
 
 }

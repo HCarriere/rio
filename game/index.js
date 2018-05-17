@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 import { addEvents } from './events';
 
-import { getFPS } from './utils';
+import { getFPS, getPhysicTickPerSecond, getDeltaTime } from './utils';
 import * as debug from './debug';
 
 import Keyboard from './controls/keyboard';
@@ -17,7 +17,9 @@ let keyboardController = new Keyboard();
 let controller = keyboardController; // default: keyboard
 
 // stats
-let fps = 0;
+let fps = 0; // frames per second
+let pts = 0; // physic tick per seconds
+let deltaTime = 1; // to scale animations
 
 // canvas initialisation
 let canvas = {};
@@ -39,9 +41,13 @@ function loop() {
     // compute FPS
     fps = getFPS();
 
+    // compute deltaTime
+    deltaTime = getDeltaTime(60, fps);
+
     // update room
     updateRoom();
-
+    pts = getPhysicTickPerSecond();
+    
     // clean screen
     canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -51,7 +57,7 @@ function loop() {
     // draw UI
     
     // draw debug
-    debug.drawDebug(fps, canvas);
+    debug.drawDebug(fps, pts, canvas);
 
     if(debug.stepByStepEnabled()) {
         debugger;
@@ -59,8 +65,8 @@ function loop() {
 
     // carry on
     requestAnimationFrame(loop);
-
 }
+
 
 
 // starting animation loop
@@ -77,4 +83,6 @@ export {
     canvas,
     controller,
     socket,
+    deltaTime,
 }
+
